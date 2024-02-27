@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        ProductManager productManager = new ProductManager("product.csv"); // Sửa đổi tên file thành "products.csv"
         int choice;
 
         do {
@@ -28,21 +29,26 @@ public class Main {
                     String manufacturer = scanner.nextLine();
                     System.out.print("Enter description: ");
                     String description = scanner.nextLine();
+                    System.out.print("Enter quantity: ");
+                    int quantity = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
+                    System.out.print("Enter type: ");
+                    String type = scanner.nextLine();
 
-                    Product product = new Product(productId, productName, price, manufacturer, description);
-                    ProductManager.addProduct(product);
+                    Product product = new Product(productId, productName, price, manufacturer, description, quantity, type);
+                    productManager.addProduct(product);
                     System.out.println("Product added successfully!");
                     break;
 
                 case 2:
                     System.out.println("List of products:");
-                    ProductManager.displayProducts();
+                    productManager.displayProducts();
                     break;
 
                 case 3:
                     System.out.print("Enter product ID to search: ");
                     int searchId = scanner.nextInt();
-                    Product foundProduct = ProductManager.findProductById(searchId);
+                    Product foundProduct = productManager.findProductById(searchId);
                     if (foundProduct != null) {
                         System.out.println("Found product: " + foundProduct);
                     } else {
@@ -62,3 +68,5 @@ public class Main {
         scanner.close();
     }
 }
+
+
